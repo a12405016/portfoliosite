@@ -1,0 +1,866 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+  SATO HIROAKI — PORTFOLIO
+========================================================================== */
+:root {
+  --bg: #FFF;
+  --ink: #15150F;
+  --ink-soft: #57544A;
+  --invert-bg: #111110;
+  --invert-ink: #F4F1E8;
+  --accent: #B7893A;
+  --line: rgba(21, 21, 15, 0.14);
+  --line-invert: rgba(244, 241, 232, 0.18);
+  --placeholder: #DAD7CC;
+  --placeholder-dark: #2A2A26;
+
+  --serif: "Shippori Mincho", "Playfair Display", "Times New Roman", serif;
+  --display: "Playfair Display", "Times New Roman", serif;
+  --sans: "Zen Kaku Gothic New", "Inter", "Hiragino Kaku Gothic ProN", sans-serif;
+
+  --container: 1180px;
+  --gutter: clamp(24px, 5vw, 64px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  margin: 0;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+/* Placeholder image blocks — swap in real images later */
+.ph {
+  background:
+    linear-gradient(135deg, var(--placeholder) 0%, #C9C5B8 100%);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ph::after {
+  content: "IMAGE";
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .18em;
+  color: rgba(21, 21, 15, 0.35);
+}
+
+.ph.dark {
+  background: linear-gradient(135deg, var(--placeholder-dark) 0%, #191917 100%);
+}
+
+.ph.dark::after {
+  color: rgba(244, 241, 232, 0.35);
+}
+
+/* ==========================================================================
+  Header / nav
+   ========================================================================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* オーバーレイ表示中も、同じ位置の×ボタンを操作できるようにする */
+  z-index: 210;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px var(--gutter);
+  mix-blend-mode: normal;
+}
+
+.site-header.on-dark {
+  color: var(--invert-ink);
+}
+
+/* ホームはヘッダー内にメニューボタンだけを置くため、右端へ寄せる */
+.home-header .menu-btn {
+  margin-left: auto;
+}
+
+.menu-btn span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  transition: transform .3s ease, opacity .3s ease;
+}
+
+.menu-btn span:nth-child(1) {
+  top: 1px;
+}
+
+.menu-btn span:nth-child(2) {
+  top: 13px;
+}
+
+.menu-btn span:nth-child(3) {
+  top: 25px;
+}
+
+.menu-btn.open span:nth-child(1) {
+  transform: translateY(12px) rotate(45deg);
+}
+
+.menu-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.open span:nth-child(3) {
+  transform: translateY(-12px) rotate(-45deg);
+}
+
+/* メニュー背景の上でも×を見やすく保つ */
+.menu-btn.open {
+  color: var(--invert-ink);
+}
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--invert-bg);
+  color: var(--invert-ink);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .4s ease, visibility .4s ease;
+}
+
+.nav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-overlay ul {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: center;
+}
+
+.nav-overlay a {
+  font-family: var(--serif);
+  font-size: clamp(28px, 6vw, 44px);
+  letter-spacing: .04em;
+}
+
+.nav-overlay a:hover {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+  Hero (home)
+========================================================================== */
+
+.logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: .06em;
+  font-weight: 600;
+}
+
+/* HERO内のロゴとサークルを、同じ高さで横並びにする */
+.hero-brand {
+  position: absolute;
+  top: var(--hero-edge-y);
+  left: var(--gutter);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 1.5vw, 110px);
+  font-size: var(--hero-display-size);
+}
+
+.hero .logo {
+  font-family: var(--display);
+  font-size: 1em;
+  line-height: 1;
+  letter-spacing: .04em;
+}
+
+.header-circle {
+  width: 1em;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.header-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-btn {
+  width: 42px;
+  height: 28px;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+.hero {
+  --hero-display-size: clamp(52px, 12vw, 148px);
+  --hero-edge-y: clamp(16px, 2.5vw, 40px);
+  --hero-brand-gap: clamp(12px, 2vw, 32px);
+  --hero-foot-clearance: max(var(--hero-display-size), 64px);
+  --hero-vert-size: clamp(12px, 2.6vw, 38px);
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 32px);
+  padding-top: calc(var(--hero-edge-y) + var(--hero-display-size) + var(--hero-brand-gap));
+  padding-bottom: var(--hero-edge-y);
+  overflow: hidden;
+}
+
+.hero-vert {
+  position: absolute;
+  top: calc(var(--hero-edge-y) + var(--hero-display-size) + var(--hero-brand-gap));
+  bottom: calc(var(--hero-edge-y) + var(--hero-foot-clearance));
+  writing-mode: vertical-rl;
+  font-family: var(--display);
+  font-size: var(--hero-vert-size);
+  line-height: 1;
+  letter-spacing: .16em;
+  white-space: nowrap;
+  text-wrap: nowrap;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+
+.hero-vert.left {
+  left: var(--gutter);
+}
+
+.hero-vert.right {
+  right: var(--gutter);
+  transform: rotate(180deg);
+}
+
+.orbit-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 140%;
+  max-width: 900px;
+  padding: 0 clamp(80px, 10vw, 160px);
+  min-height: 0;
+}
+
+.orbit-wrap svg,
+.orbit-wrap img.orbit {
+  width: 100%;
+  height: auto;
+  max-height: 56svh;
+  object-fit: contain;
+}
+
+.hero-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 0 var(--gutter);
+}
+
+.hero-foot h1 {
+  font-family: var(--display);
+  font-size: var(--hero-display-size);
+  line-height: .92;
+  letter-spacing: .01em;
+  text-align: right;
+}
+
+.hero-title {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(12px, 2vw, 28px);
+  margin-left: auto;
+}
+
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: .12em;
+}
+
+.pill-btn:hover {
+  background: var(--accent);
+}
+
+.arrow-badge {
+  /* 矢印の高さはこの値で調整（画面幅に応じて可変） */
+  --arrow-size: clamp(40px, 8vw, 100px);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+
+.arrow-badge img {
+  height: var(--arrow-size);
+  width: auto;
+  object-fit: contain;
+  transition: transform .3s ease;
+}
+
+.arrow-badge:hover img {
+  transform: translate(4px, -4px);
+}
+
+/* ==========================================================================
+  Concept (dark) section
+  ========================================================================== */
+.concept {
+  background: var(--invert-bg);
+  color: var(--invert-ink);
+  padding: 120px 0 140px;
+  text-align: center;
+  position: relative;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: .3em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.concept h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  letter-spacing: .08em;
+  margin-bottom: 56px;
+}
+
+.concept-orbit {
+  max-width: 460px;
+  margin: 0 auto 56px;
+}
+
+.concept-orbit svg,
+.concept-orbit-img {
+  width: 100%;
+  height: auto;
+}
+
+.concept-copy p {
+  font-size: 15px;
+  color: rgba(244, 241, 232, 0.82);
+  margin-bottom: 18px;
+}
+
+.concept-copy p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Works preview (home)
+   ========================================================================== */
+.works-preview {
+  padding: 120px 0;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  text-align: center;
+  margin-bottom: 64px;
+  letter-spacing: .06em;
+}
+
+.pill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: end;
+}
+
+.pill-card {
+  position: relative;
+  border-radius: 999px;
+  aspect-ratio: 1/2.05;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 26px;
+}
+
+.pill-card .ph {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+}
+
+/* 写真の上でラベルを読みやすくする下部グラデーション */
+.pill-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top,
+      rgba(17, 17, 16, 0.72) 0%,
+      rgba(17, 17, 16, 0.28) 22%,
+      rgba(17, 17, 16, 0) 46%);
+  pointer-events: none;
+}
+
+.ph1,
+.ph2,
+.ph3,
+.ph4 {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  /* ピル型の角丸を維持 */
+  overflow: hidden;
+  /* 中の画像が拡大した際のはみ出しをカット */
+}
+
+.ph1::before,
+.ph2::before,
+.ph3::before,
+.ph4::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+  /* ホバー時の滑らかな動き */
+}
+
+/* 各画像へのパス指定 */
+.ph1::before {
+  background-image: url("../images/homeworkill.png");
+}
+
+.ph2::before {
+  background-image: url("../images/homeworkweb.png");
+}
+
+.ph3::before {
+  background-image: url("../images/homeworkuiux.png");
+}
+
+.ph4::before {
+  background-image: url("../images/homeworkmotion.png");
+}
+
+/* ホバー時に中の画像(::before)のみを1.05倍に拡大 */
+.pill-card:hover .ph1::before,
+.pill-card:hover .ph2::before,
+.pill-card:hover .ph3::before,
+.pill-card:hover .ph4::before {
+  transform: scale(1.05);
+}
+
+.pill-card span {
+  position: relative;
+  z-index: 2;
+  font-family: var(--serif);
+  font-size: 20px;
+  letter-spacing: .05em;
+  color: var(--invert-ink);
+}
+
+
+.pill-card:nth-child(odd) {
+  transform: translateY(0);
+}
+
+.pill-card:nth-child(2) {
+  transform: translateY(-24px);
+}
+
+.pill-card:nth-child(4) {
+  transform: translateY(-24px);
+}
+
+
+/* ==========================================================================
+  Page header (inner pages)
+   ========================================================================== */
+.page-head {
+  padding: 150px var(--gutter) 40px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.page-head h1 {
+  font-size: clamp(44px, 8vw, 72px);
+  letter-spacing: .02em;
+}
+
+/* ==========================================================================
+  Skills block (works page)
+   ========================================================================== */
+.skills {
+  padding: 0 var(--gutter) 40px;
+  max-width: var(--container);
+  margin: 0 auto;
+}
+
+.skills-eyebrow {
+  font-size: 12px;
+  letter-spacing: .2em;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  display: block;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-bottom: 28px;
+}
+
+.skill-chip {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.skill-chip .name {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .05em;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.skill-chip .stars {
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.category-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.category-tags span {
+  font-size: 12px;
+  padding: 6px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+}
+
+/* ==========================================================================
+  Works grid (category sections)
+   ========================================================================== */
+.category-section {
+  padding: 70px var(--gutter);
+  max-width: var(--container);
+  margin: 0 auto;
+  scroll-margin-top: 100px;
+}
+
+.category-section h2 {
+  font-size: clamp(28px, 5vw, 40px);
+  margin-bottom: 44px;
+  letter-spacing: .03em;
+}
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 32px;
+}
+
+.work-card .ph {
+  aspect-ratio: 4/5;
+  margin-bottom: 20px;
+  transition: transform .3s ease;
+  transform-origin: center center;
+}
+
+.work-card .ph:hover {
+  transform: scale(1.02);
+}
+
+.work-card.wide .ph {
+  aspect-ratio: 16/10;
+}
+
+.work-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+  letter-spacing: .02em;
+}
+
+.work-card p.desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (min-width:901px) {
+  .hero {
+    /* PCでは画面の高さを基準に、左右の縦組みを同じサイズで揃える */
+    --hero-vert-size: clamp(22px, 40svh, 75px);
+  }
+
+  /* 枠外に文字を表示するため、カード自体の「はみ出し禁止」を解除 */
+  .pill-card {
+    overflow: visible;
+  }
+
+  /* 文字が外に出るため、読みやすくするための暗いグラデーションを非表示に */
+  .pill-card::after {
+    display: none;
+  }
+
+  /* テキストのスタイル調整（黒文字化・枠外へ配置） */
+  .pill-card span {
+    position: absolute;
+    color: var(--ink);
+    /* 文字色を黒ベースに[cite: 2] */
+    font-size: 32px;
+    /* テキストサイズ（画像に合わせて大きめに設定） */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  /* 1・3番目（奇数）はテキストを下に */
+  .pill-card:nth-child(odd) span {
+    bottom: -64px;
+  }
+
+  /* 2・4番目（偶数）はテキストを上に */
+  .pill-card:nth-child(even) span {
+    top: -64px;
+  }
+
+  /* カード自体の上下のズレを調整（デフォルトの設定を上書き）[cite: 2] */
+  .pill-card:nth-child(odd) {
+    transform: translateY(0);
+  }
+
+  .pill-card:nth-child(even) {
+    transform: translateY(40px);
+    /* 偶数番目を少し下へずらしてリズムを強調 */
+  }
+}
+
+@media (max-width:900px) {
+  .pill-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pill-card:nth-child(2n) {
+    transform: translateY(0);
+  }
+
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .others-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-photo {
+    order: -1;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .orbit-wrap {
+    max-width: 560px;
+    padding: 0 clamp(30px, 8vw, 80px);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .footer-col.right {
+    text-align: left;
+  }
+}
+
+@media (max-width:560px) {
+  :root {
+    --gutter: 20px;
+  }
+
+  .hero {
+    --hero-foot-clearance: 180px;
+    padding-top: 92px;
+  }
+
+  .hero-brand {
+    top: 22px;
+  }
+
+  .orbit-wrap {
+    max-width: 380px;
+    padding: 0 clamp(20px, 6vw, 48px);
+  }
+
+  .hero-foot {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+  }
+
+  .hero-title {
+    align-self: flex-end;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+  }
+
+  .hero-title .pill-btn {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .hero-title h1 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .hero-title .arrow-badge {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .work-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .others-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pill-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-head {
+    padding-top: 120px;
+  }
+
+  .category-section {
+    padding: 50px var(--gutter);
+  }
+}

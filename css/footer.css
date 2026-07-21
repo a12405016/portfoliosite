@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+  Footer
+========================================================================== */
+.site-footer {
+    background: var(--invert-bg);
+    color: var(--invert-ink);
+    padding: 80px var(--gutter) 32px;
+}
+
+.footer-grid {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.footer-col h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: .04em;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--accent);
+    display: inline-block;
+    margin-bottom: 22px;
+}
+
+.footer-col.right {
+    text-align: right;
+}
+
+.footer-col.right h3 {
+    border-color: var(--accent);
+}
+
+.footer-col a,
+.footer-col p {
+    display: block;
+    font-size: 14px;
+    color: rgba(244, 241, 232, 0.85);
+    margin-bottom: 10px;
+}
+
+.footer-col.right a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    max-width: var(--container);
+    margin: 56px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--line-invert);
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: rgba(244, 241, 232, 0.55);
+}

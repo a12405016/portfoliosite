@@ -1,0 +1,373 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   SATO HIROAKI — PORTFOLIO
+   Design tokens
+   ========================================================================== */
+:root {
+    --bg: #FAFAF6;
+    --ink: #15150F;
+    --ink-soft: #57544A;
+    --invert-bg: #111110;
+    --invert-ink: #F4F1E8;
+    --accent: #B7893A;
+    --line: rgba(21, 21, 15, 0.14);
+    --line-invert: rgba(244, 241, 232, 0.18);
+
+    --serif: "Shippori Mincho", "Playfair Display", "Times New Roman", serif;
+    --sans: "Zen Kaku Gothic New", "Inter", "Hiragino Kaku Gothic ProN", sans-serif;
+
+    --container: 1180px;
+    --gutter: clamp(24px, 8.8vw, 163px);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--serif);
+    margin: 0;
+    font-weight: 600;
+}
+
+p {
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.wrap {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+}
+
+/* Placeholder image blocks — swap in real images later */
+.ph {
+    background:
+        linear-gradient(135deg, var(--placeholder) 0%, #C9C5B8 100%);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ph::after {
+    content: "IMAGE";
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .18em;
+    color: rgba(21, 21, 15, 0.35);
+}
+
+.ph.dark {
+    background: linear-gradient(135deg, var(--placeholder-dark) 0%, #191917 100%);
+}
+
+.ph.dark::after {
+    color: rgba(244, 241, 232, 0.35);
+}
+
+
+/* ==========================================================================
+  Header / nav
+   ========================================================================== */
+.menu-btn {
+    width: 42px;
+    height: 28px;
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+/* ★ヘッダーのロゴのスタイルも profile.css に不足しています */
+.logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    letter-spacing: .06em;
+    font-weight: 600;
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* オーバーレイ表示中も、同じ位置の×ボタンを操作できるようにする */
+    z-index: 210;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px var(--gutter);
+    mix-blend-mode: normal;
+}
+
+.site-header.on-dark {
+    color: var(--invert-ink);
+}
+
+/* ホームはヘッダー内にメニューボタンだけを置くため、右端へ寄せる */
+.home-header .menu-btn {
+    margin-left: auto;
+}
+
+.menu-btn span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: currentColor;
+    transition: transform .3s ease, opacity .3s ease;
+}
+
+.menu-btn span:nth-child(1) {
+    top: 1px;
+}
+
+.menu-btn span:nth-child(2) {
+    top: 13px;
+}
+
+.menu-btn span:nth-child(3) {
+    top: 25px;
+}
+
+.menu-btn.open span:nth-child(1) {
+    transform: translateY(12px) rotate(45deg);
+}
+
+.menu-btn.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-btn.open span:nth-child(3) {
+    transform: translateY(-12px) rotate(-45deg);
+}
+
+/* メニュー背景の上でも×を見やすく保つ */
+.menu-btn.open {
+    color: var(--invert-ink);
+}
+
+.nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--invert-bg);
+    color: var(--invert-ink);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .4s ease, visibility .4s ease;
+}
+
+.nav-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-overlay ul {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    text-align: center;
+}
+
+.nav-overlay a {
+    font-family: var(--serif);
+    font-size: clamp(28px, 6vw, 44px);
+    letter-spacing: .04em;
+}
+
+.nav-overlay a:hover {
+    color: var(--accent);
+}
+
+
+
+
+
+
+/* ==========================================================================
+  Profile page
+========================================================================== */
+.profile-hero {
+    padding: 150px var(--gutter) 100px;
+    max-width: var(--container);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.profile-hero h1 {
+    font-size: clamp(48px, 9vw, 80px);
+    margin-bottom: 40px;
+}
+
+.profile-name .en {
+    font-family: var(--sans);
+    font-size: 15px;
+    letter-spacing: .1em;
+    color: var(--ink-soft);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.profile-name .jp {
+    font-family: var(--serif);
+    font-size: 26px;
+    margin-bottom: 32px;
+    display: block;
+}
+
+.profile-facts p {
+    margin-bottom: 14px;
+    font-size: 14.5px;
+}
+
+.profile-facts b {
+    font-weight: 600;
+}
+
+.profile-photo {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    /* ★ここで全体のサイズを小さく絞ります（お好みで調整してください） */
+    margin: 0 auto;
+}
+
+.profile-photo .ph {
+    aspect-ratio: 4/5;
+    border-radius: 32px;
+    /* ★添付画像のような大きめの角丸にする */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    /* ほんのり影をつける */
+}
+
+.profile-photo .badge {
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 130px;
+    /* 丸のサイズを画像に合わせて少し大きく指定 */
+    height: 110px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge {
+    position: relative;
+    z-index: 20;
+}
+
+.others {
+    padding: 60px var(--gutter) 120px;
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+.others h2 {
+    font-size: clamp(30px, 5vw, 42px);
+    margin-bottom: 48px;
+}
+
+.others-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 63px;
+}
+
+.others-card h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15.5px;
+    margin-bottom: 48px;
+}
+
+.others-card .ph {
+    aspect-ratio: 4/3;
+    margin-bottom: 35px;
+}
+
+.others-card p {
+    font-size: 13px;
+    color: var(--ink-soft);
+}
+
+/* ==========================================================================
+   ph（画像プレースホルダー）の画像表示調整
+========================================================================== */
+
+/* 1. 画像を枠（4:3などの比率）いっぱいに綺麗に広げる */
+.ph img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 比率を保ったまま、隙間なく綺麗に収めます */
+    z-index: 2;
+}
+
+/* 2. 中に画像（img）があるときは、後ろの「IMAGE」という文字を非表示にする */
+.ph:has(img)::after {
+    display: none;
+}
+
+/* 3. 中に画像があるときは、隙間から見えてしまう背景グラデーションを透明にする */
+.ph:has(img) {
+    background: transparent;
+}
