@@ -360,7 +360,6 @@ button {
 }
 
 .ph::after {
-    content: "IMAGE";
     font-family: var(--sans);
     font-size: 11px;
     letter-spacing: .18em;

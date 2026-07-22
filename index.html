@@ -18,8 +18,9 @@
   <link rel="stylesheet" href="css/footer.css">
 </head>
 
-<body>
+<body class="is-loading">
 
+  <!-- ============ HEADER ============ -->
   <header class="site-header home-header">
     <button class="menu-btn" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-nav">
       <span></span><span></span><span></span>
@@ -84,15 +85,15 @@
           <div class="ph1"></div>
           <span>Illustration</span>
         </a>
-        <a class="pill-card on-light" href="html/worksmore.html#website">
+        <a class="pill-card on-light" href="html/works.html#website">
           <div class="ph2"></div>
           <span>Web</span>
         </a>
-        <a class="pill-card on-light" href="html/worksmore.html#uiux">
+        <a class="pill-card on-light" href="html/works.html#uiux">
           <div class="ph3"></div>
           <span>UI/UX</span>
         </a>
-        <a class="pill-card on-dark" href="html/worksmore.html#motion">
+        <a class="pill-card on-dark" href="html/works.html#motion">
           <div class="ph4"></div>
           <span>Motion</span>
         </a>
@@ -115,6 +116,22 @@
     </div>
     <div class="footer-bottom">2026 Sato Hiroaki All Rights Reserved.</div>
   </footer>
+
+
+  <div id="loading" aria-hidden="true">
+    <div class="loading-inner">
+      <div class="loading-ring-wrap">
+        <svg class="loading-ring" viewBox="0 0 240 240" width="200" height="200">
+          <circle class="ring-track" cx="120" cy="120" r="100" />
+          <circle class="ring-dash" cx="120" cy="120" r="118" />
+          <circle class="ring-progress" cx="120" cy="120" r="100" transform="rotate(-90 120 120)" />
+          <circle class="ring-dot" cx="120" cy="20" r="5" />
+        </svg>
+        <img src="images/profileicon.png" alt="" class="loading-icon">
+      </div>
+      <div class="loading-percent">0%</div>
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
 </body>

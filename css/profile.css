@@ -109,6 +109,14 @@ button {
     color: rgba(244, 241, 232, 0.35);
 }
 
+.ph {
+    transition: transform .3s ease;
+    transform-origin: center center;
+}
+
+.ph:hover {
+    transform: scale(1.02);
+}
 
 /* ==========================================================================
   Header / nav

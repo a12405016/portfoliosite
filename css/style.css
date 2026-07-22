@@ -111,6 +111,148 @@ button {
   color: rgba(244, 241, 232, 0.35);
 }
 
+/*loding*/
+#loading {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .9s cubic-bezier(.65, 0, .35, 1);
+}
+
+#loading.dissolve {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.loading-ring-wrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.loading-ring {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* 進捗の背景トラック */
+.ring-track {
+  fill: none;
+  stroke: var(--track);
+  stroke-width: 3;
+}
+
+/* 進捗そのもの（2秒でdashoffsetが0になる） */
+.ring-progress {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+/* 外側でゆっくり回る破線（動きをつけるための装飾） */
+.ring-dash {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-dasharray: 2 10;
+  opacity: .35;
+  transform-origin: 120px 120px;
+  animation: spin 9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 進捗の先端を追いかける光点 */
+.ring-dot {
+  fill: var(--ink);
+}
+
+.loading-percent {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  letter-spacing: .2em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+/* リング内右下 → 中心へ、勢いよく通り過ぎてバウンドしながら収まるアイコン */
+.loading-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  opacity: 0;
+  transform: translate(-50%, -50%) translate(90px, 90px) scale(.25);
+}
+
+.loading-icon.enter {
+  animation: iconEnter .75s cubic-bezier(.2, .7, .3, 1) forwards;
+}
+
+@keyframes iconEnter {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(90px, 90px) scale(.25);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  48% {
+    transform: translate(-50%, -50%) translate(-16px, -16px) scale(1.28);
+  }
+
+  /* 中心を通り過ぎる */
+  68% {
+    transform: translate(-50%, -50%) translate(7px, 7px) scale(.9);
+  }
+
+  84% {
+    transform: translate(-50%, -50%) translate(-3px, -3px) scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-dash {
+    animation: none;
+  }
+
+  #loading {
+    transition-duration: .3s;
+  }
+
+  .loading-icon.enter {
+    animation: none;
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
+  }
+}
+
 /* ==========================================================================
   Header / nav
    ========================================================================== */
