@@ -922,14 +922,7 @@ button {
     padding: 0 clamp(30px, 8vw, 80px);
   }
 
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 56px;
-  }
-
-  .footer-col.right {
-    text-align: left;
-  }
+  /* フッターのレスポンシブは footer.css に移動しました */
 }
 
 @media (max-width:560px) {
@@ -1004,5 +997,72 @@ button {
 
   .category-section {
     padding: 50px var(--gutter);
+  }
+}
+
+/* ==========================================================================
+   Responsive 追加調整（HOME）
+   PC表示は変えず、タブレット・スマホ向けの調整のみ
+   ========================================================================== */
+@media (max-width:900px) {
+
+  /* 「WORKSを見る」ボタンが2行に折り返さないようにする */
+  .hero-title .pill-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* 2列のカードが縦に長くなりすぎないよう幅を抑える */
+  .pill-grid {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .concept {
+    padding: 96px 0 112px;
+  }
+
+  .works-preview {
+    padding: 96px 0;
+  }
+}
+
+@media (max-width:560px) {
+  .hero {
+    /* ロゴ「PORTFOLIO」がメニューボタンに重ならないサイズに抑える */
+    --hero-display-size: min(13vw, calc((100vw - 100px) / 7));
+  }
+
+  .concept {
+    padding: 72px 0 88px;
+  }
+
+  .concept h2 {
+    margin-bottom: 36px;
+  }
+
+  .concept-orbit {
+    max-width: 280px;
+    margin-bottom: 36px;
+  }
+
+  .concept-copy p {
+    font-size: 14px;
+  }
+
+  .works-preview {
+    padding: 72px 0 80px;
+  }
+
+  .section-title {
+    margin-bottom: 40px;
+  }
+
+  .pill-card {
+    padding-bottom: 20px;
+  }
+
+  .pill-card span {
+    font-size: 17px;
   }
 }

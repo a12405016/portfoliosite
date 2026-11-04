@@ -58,3 +58,40 @@
     letter-spacing: .08em;
     color: rgba(244, 241, 232, 0.55);
 }
+
+/* ==========================================================================
+  Footer — レスポンシブ
+  （これまで style.css にしか無かったため、全ページ共通の footer.css に移動）
+========================================================================== */
+@media (max-width: 900px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .footer-col.right {
+        text-align: left;
+    }
+}
+
+@media (max-width: 560px) {
+    .site-footer {
+        padding: 56px var(--gutter) 28px;
+    }
+
+    .footer-col h3 {
+        font-size: 19px;
+        margin-bottom: 18px;
+    }
+
+    .footer-col a,
+    .footer-col p {
+        /* タップしやすいよう行間を広げる */
+        margin-bottom: 14px;
+        word-break: break-all;
+    }
+
+    .footer-bottom {
+        margin-top: 40px;
+    }
+}

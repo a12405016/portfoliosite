@@ -133,6 +133,11 @@
     /* ホバー時の変化を滑らかにする */
 }
 
+.pill-btn.last {
+    margin-bottom: 56px;
+    margin-top: -20px;
+}
+
 .pill-btn:hover {
     background: var(--accent);
     transform: translate(1.3);
@@ -657,5 +662,110 @@ button {
     .item-r {
         grid-column: 1 / span 2;
         grid-row: 3;
+    }
+}
+
+/* ==========================================================================
+   Responsive（WORKS / もっと見る ページ）
+   PC表示は変えず、タブレット・スマホ向けの調整のみ
+========================================================================== */
+@media (max-width: 1180px) {
+
+    /* もっと見るページの見出しを、下のセクションと同じ左右余白にそろえる */
+    .page-head-more .page-head {
+        padding: 0 var(--gutter);
+    }
+}
+
+@media (max-width: 1100px) {
+
+    /* 1カラムになったらスキルを横一列に並べ、アイコンが巨大化しないよう上限を設ける */
+    .works-hero .skills-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .skill-chip .skill-icon {
+        width: 100%;
+        max-width: 88px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .work-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px 24px;
+    }
+
+    .category-section {
+        padding: 56px var(--gutter);
+    }
+
+    .category-section h2 {
+        margin-bottom: 32px;
+    }
+}
+
+@media (max-width: 760px) {
+
+    /* 固定ヘッダーとページ見出しが重ならないよう上余白を確保 */
+    .works-hero {
+        padding: 100px var(--gutter) 24px;
+    }
+
+    .page-head-more {
+        margin-top: 0;
+        padding-top: 100px;
+    }
+
+    .hero-card--large {
+        min-height: 0;
+    }
+
+    .works-hero .skills-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    :root {
+        --gutter: 20px;
+    }
+
+    .work-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .category-section {
+        padding: 48px var(--gutter);
+    }
+
+    .category-section h2 {
+        margin-bottom: 24px;
+    }
+
+    .work-card h3 {
+        font-size: 18px;
+    }
+
+    .work-card p.desc {
+        font-size: 14px;
+    }
+
+    .skill-chip {
+        padding: 10px 6px;
+    }
+
+    .skill-chip .skill-icon {
+        max-width: 64px;
+    }
+
+    .category-tags span {
+        padding: 5px 14px;
+    }
+
+    .pill-btn.last {
+        margin-top: -8px;
     }
 }
